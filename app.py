@@ -1,9 +1,9 @@
 
 
-from flask import Flask, url_for
+from flask import Flask, render_template_string, url_for
 from flask_ldap3_login import LDAP3LoginManager
 from flask_login import LoginManager, current_user, UserMixin
-from flask import render_template_string, redirect
+from flask import render_template_string,  redirect
 from sqlalchemy import create_engine, text
 
 app = Flask(__name__)
@@ -15,7 +15,7 @@ app.config['LDAP_BIND_USER_PASSWORD'] = None
 
 login_manager = LoginManager(app)
 ldap_manager = LDAP3LoginManager(app)
-engine = create_engine("sqlite+pysqlite:///database.db", echo=True, future=True)
+engine = create_engine("sqlite+pysqlite:///:memory:", echo=True, future=True)
 
 
 users = {}
@@ -64,7 +64,7 @@ def login():
     </div>
     <div class="footer">Rodapé</div>
     """
-
+    return render_templ
     return render_template_string(template)
 
 
