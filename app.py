@@ -43,17 +43,16 @@ def login():
             flash('É necessário digitar um nome!')
         elif not password:
             flash('É necessário digitar uma senha!')
-    
-
-        with engine.connect() as conn:
-            conn.execute(text("INSERT INTO USER (username, password) VALUES (:username, :password)"),
+        else:
+            with engine.connect() as conn:
+                conn.execute(text("INSERT INTO USER (username, password) VALUES (:username, :password)"),
                 [{"username": name,"password": password}],
-            )
-            conn.commit()
+                )
+                conn.commit()
             
-            result = conn.execute(text("SELECT * FROM USER"))
-            print(name + password)        
-            return 'Nome: '+name+' e Senha: '+password+' adicionados.'
+                result = conn.execute(text("SELECT * FROM USER"))
+                print(name + password)        
+                return 'Nome: '+name+' e Senha: '+password+' adicionados.'
 
     return render_template('login.html')    
 
