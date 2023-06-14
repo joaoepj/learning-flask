@@ -1,20 +1,14 @@
-
-
-from flask import Flask, render_template, render_template_string, url_for
-from flask_ldap3_login import LDAP3LoginManager
-from flask_login import LoginManager, current_user, UserMixin
-from flask import render_template_string,  redirect
+from flask import Flask, render_template, url_for
+from flask import redirect, flash, request
 from sqlalchemy import create_engine, text
+from flask_login import LoginManager, current_user, UserMixin
+
+
 
 app = Flask(__name__)
-app.config['LDAP_HOST'] = 'odie-dev.dr.ufu.br'
-app.config['LDAP_BASE_DN'] = 'dc=ufu,dc=br'
-app.config['LDAP_USER_DN'] = 'ou=people'
-app.config['LDAP_BIND_USER_DN'] = None
-app.config['LDAP_BIND_USER_PASSWORD'] = None
+app.config['SECRET_KEY'] = 'your secret key'
 
 login_manager = LoginManager(app)
-ldap_manager = LDAP3LoginManager(app)
 engine = create_engine("sqlite+pysqlite:///database.db", echo=True, future=True)
 
 users = {}
@@ -39,15 +33,32 @@ def home():
     return render_template('index.html')
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET','POST'])
 def login():
-    return render_template('login.html')
+    if request.method == 'POST':
+        name = request.form['name']
+        password = request.form['password']
+
+        if not name:
+            flash('É necessário digitar um nome!')
+        elif not password:
+            flash('É necessário digitar uma senha!')
+    
+
+        with engine.connect() as conn:
+            conn.execute(text("INSERT INTO USER (username, password) VALUES (:username, :password)"),
+                [{"username": name,"password": password}],
+            )
+            conn.commit()
+            
+            result = conn.execute(text("SELECT * FROM USER"))
+            print(name + password)        
+            return 'Nome: '+name+' e Senha: '+password+' adicionados.'
+
+    return render_template('login.html')    
 
 
-@app.route('/manual_login')
-def manual_login():
-    app.ldap3_login_manager.authenticate('joao','R3s!l13nc3')
-    return current_user
+
 
 @login_manager.user_loader
 def load_user(id):
