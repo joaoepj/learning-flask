@@ -1,6 +1,6 @@
 
 
-from flask import Flask, render_template_string, url_for
+from flask import Flask, render_template, render_template_string, url_for
 from flask_ldap3_login import LDAP3LoginManager
 from flask_login import LoginManager, current_user, UserMixin
 from flask import render_template_string,  redirect
@@ -15,8 +15,7 @@ app.config['LDAP_BIND_USER_PASSWORD'] = None
 
 login_manager = LoginManager(app)
 ldap_manager = LDAP3LoginManager(app)
-engine = create_engine("sqlite+pysqlite:///:memory:", echo=True, future=True)
-
+engine = create_engine("sqlite+pysqlite:///database.db", echo=True, future=True)
 
 users = {}
 
@@ -37,35 +36,12 @@ def home():
     #if not current_user or current_user.is_anonymous:
     #    return redirect(url_for('login'))
     
-    template = """
-    <div color=grey>Hello</div>
-    <h1>Welcome: {{ current_user.data }}</h1>
-    <h2>{{ current_user.dn }}</h2>
-    <a href="/createtable">Criar tabela</a><br>
-    <a href="/selecttable">Ler tabela</a><br>
-    <a href="/login">Login</a>
-    """
-
-    return render_template_string(template)
+    return render_template('index.html')
 
 
 @app.route('/login')
 def login():
-    template = """
-    <style>
-    .header {color:red;}
-    .footer {background-color:lightgrey;}
-    </style>
-    <div class="header footer">Cabeçalho</div>
-    <div>
-    <h1>Seja bem vindo: {{ current_user.data }}</h1>
-    <h2>abc{{ current_user.dn }}</h2>
-    <a href="/createtable">Criar tabela de banco de dados</a>
-    </div>
-    <div class="footer">Rodapé</div>
-    """
-    return render_templ
-    return render_template_string(template)
+    return render_template('login.html')
 
 
 @app.route('/manual_login')
@@ -80,8 +56,8 @@ def load_user(id):
     return None
 
 
-@app.route('/createtable')
-def createtable():
+@app.route('/create')
+def create():
     with engine.connect() as conn:
         conn.execute(text("CREATE TABLE IF NOT EXISTS USER (username VARCHAR(10), password VARCHAR(10))"))
         conn.execute(
@@ -92,8 +68,8 @@ def createtable():
         result = conn.execute(text("SELECT * FROM sqlite_master"))
         return str(result.all())
         
-@app.route('/selecttable')
-def selecttable():
+@app.route('/select')
+def select():
     with engine.connect() as conn:
         result = conn.execute(text("SELECT * FROM USER"))
         return str(result.all())
