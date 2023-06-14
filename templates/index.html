@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+    <style>
+        .header {
+            color: red;
+        }
+    
+        .footer {
+            background-color: lightgrey;
+        }
+    </style>
+<body>
+    <div color=grey>Hello</div>
+    <h1>Welcome: {{ current_user.data }}</h1>
+    <h2>{{ current_user.dn }}</h2>
+    <a href="/createtable">Criar tabela</a><br>
+    <a href="/selecttable">Ler tabela</a><br>
+    <a href="/login">Login</a>
+</body>
+</html>
