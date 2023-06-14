@@ -1,11 +1,12 @@
-
-
-from flask import Flask, render_template, render_template_string, url_for
-from flask_login import LoginManager, current_user, UserMixin
-from flask import render_template_string,  redirect
+from flask import Flask, render_template, url_for
+from flask import redirect, flash, request
 from sqlalchemy import create_engine, text
+from flask_login import LoginManager, current_user, UserMixin
+
+
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'your secret key'
 
 login_manager = LoginManager(app)
 engine = create_engine("sqlite+pysqlite:///database.db", echo=True, future=True)
@@ -32,9 +33,30 @@ def home():
     return render_template('index.html')
 
 
-@app.route('/login')
+@app.route('/login', methods=['GET','POST'])
 def login():
-    return render_template('login.html')
+    if request.method == 'POST':
+        name = request.form['name']
+        password = request.form['password']
+
+        if not name:
+            flash('É necessário digitar um nome!')
+        elif not password:
+            flash('É necessário digitar uma senha!')
+    
+
+        with engine.connect() as conn:
+            conn.execute(text("INSERT INTO USER (username, password) VALUES (:username, :password)"),
+                [{"username": name,"password": password}],
+            )
+            conn.commit()
+            
+            result = conn.execute(text("SELECT * FROM USER"))
+            print(name + password)        
+            return 'Nome: '+name+' e Senha: '+password+' adicionados.'
+
+    return render_template('login.html')    
+
 
 
 
