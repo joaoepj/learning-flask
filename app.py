@@ -17,7 +17,7 @@ login_manager = LoginManager(app)
 ldap_manager = LDAP3LoginManager(app)
 engine = create_engine("sqlite+pysqlite:///database.db", echo=True, future=True)
 
-users = {}
+
 
 class User(UserMixin):
     def __init__(self, dn, username, data):
@@ -73,3 +73,9 @@ def select():
     with engine.connect() as conn:
         result = conn.execute(text("SELECT * FROM USER"))
         return str(result.all())
+    
+@app.route('/users')
+def users():
+    with engine.connect() as conn:
+        result = conn.execute(text("SELECT * FROM USER"))
+        return render_template('users.html', title='Users', users=result)
