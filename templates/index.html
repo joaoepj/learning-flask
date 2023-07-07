@@ -1,13 +1,10 @@
-{% extends "base.html" %}
+{% extends "layout.html" %}
 
 {% block content %}
 
-    <div color=grey>Hello</div>
-    <h2>Welcome: {{ current_user.data }}</h2>
-    <h2>{{ current_user.dn }}</h2>
-    <nav>
-            <a href="/create">Criar a tabela</a><br>
-            <a href="/users">Ler usuários da tabela</a><br>
+    <nav class="nav flex-column px-1">
+            <a class="py+20" href="/create">Criar a tabela</a>
+            <a class="px-20" href="/users">Usuários</a>
             <a href="/login">Login</a>
     </nav>
 
