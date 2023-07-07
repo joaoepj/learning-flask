@@ -2,7 +2,7 @@ from flask import Flask, render_template, url_for
 from flask import redirect, flash, request
 from sqlalchemy import create_engine, text
 from flask_login import LoginManager, current_user, UserMixin
-
+from forms import RegistrationForm
 
 
 app = Flask(__name__)
@@ -40,9 +40,9 @@ def login():
         password = request.form['password']
 
         if not name:
-            flash('É necessário digitar um nome!')
+            flash('É necessário digitar um nome!','danger')
         elif not password:
-            flash('É necessário digitar uma senha!')
+            flash('É necessário digitar uma senha!','warning')
         else:
             with engine.connect() as conn:
                 conn.execute(text("INSERT INTO USER (username, password) VALUES (:username, :password)"),
@@ -64,6 +64,14 @@ def load_user(id):
     if id in users:
         return users[id]
     return None
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        flash('Conta criada {form.username.data}!', 'success')
+    return render_template('register.html', title='Register', form=form)
 
 
 @app.route('/create')

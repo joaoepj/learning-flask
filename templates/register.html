@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="content-section col-sm-7">
+        <form action="" method="post">
+            {{form.hiden_tag}}
+
+            <fieldset class="form-group">
+                <dir class="form-group">
+                    {{form.username.label(class="form-control-label")}}
+                    {{form.username(class="form-control form-control")}}
+                </dir>
+                <dir class="form-group">
+                    {{form.email.label(class="form-control-label")}}
+                    {{form.email(class="form-control form-control")}}
+                </dir>
+                <dir class="form-group">
+                    {{form.submit(class="btn btn-primary")}}
+                </dir>
+            </fieldset>
+            </form>
+
+    </div>
+
+{% endblock %}
