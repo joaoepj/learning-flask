@@ -2,7 +2,9 @@ from flask import Flask, render_template, url_for
 from flask import redirect, flash, request
 from sqlalchemy import create_engine, text
 from flask_login import LoginManager, current_user, UserMixin
+from flask_wtf import FlaskForm
 from forms import RegistrationForm
+
 
 
 app = Flask(__name__)
@@ -62,15 +64,20 @@ def login():
 @login_manager.user_loader
 def load_user(id):
     if id in users:
-        return users[id]
+        return None
     return None
 
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
+    print(form.validate())
+    print(form.is_submitted())
+    print(form.validate_on_submit())
+    print(form.errors)
+
     if form.validate_on_submit():
-        flash('Conta criada {form.username.data}!', 'success')
+        flash(f'Conta criada {form.username.data}!', 'success')
         return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
 

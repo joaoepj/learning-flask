@@ -7,5 +7,5 @@ class RegistrationForm(FlaskForm):
                            validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email',
                            validators=[DataRequired(), Email()])
-    password = PasswordField('Senha', validators=[DataRequired()])
+    #password = PasswordField('Senha', validators=[DataRequired()])
     submit = SubmitField('Registre-se')
