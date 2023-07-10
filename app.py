@@ -5,7 +5,7 @@ from flask_login import LoginManager, current_user, UserMixin
 from flask_wtf import FlaskForm
 from forms import RegistrationForm
 
-
+import bcrypt
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your secret key'
@@ -77,6 +77,14 @@ def register():
     print(form.errors)
 
     if form.validate_on_submit():
+        password = form.email.data
+        hash = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+        with engine.connect() as conn:
+            conn.execute(
+                text("INSERT INTO USER (username, password) VALUES (:username, :password)"),
+                [{"username": form.username.data,"password": hash}],
+            )
+            conn.commit()
         flash(f'Conta criada {form.username.data}!', 'success')
         return redirect(url_for('home'))
     return render_template('register.html', title='Register', form=form)
