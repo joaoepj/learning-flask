@@ -4,11 +4,13 @@ from sqlalchemy import create_engine, text
 from flask_login import LoginManager, current_user, UserMixin
 from flask_wtf import FlaskForm
 from forms import RegistrationForm
+from json2html import *
 
 import bcrypt
 import requests
 import os
 import json
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
@@ -46,7 +48,8 @@ def kea():
     headers = {'Content-Type': 'application/json'}
     response = requests.post(url, data=json.dumps(data), headers=headers)
     print(json.dumps(response.json(), indent=4))
-    return json.dumps(response.json(), indent=4)
+    input = json.dumps(response.json(), indent=4)
+    return json2html.convert(json = input)
 
 @app.route('/login', methods=['GET','POST'])
 def login():
