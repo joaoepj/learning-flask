@@ -6,9 +6,12 @@ from flask_wtf import FlaskForm
 from forms import RegistrationForm
 
 import bcrypt
+import requests
+import os
+import json
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your secret key'
+app.config['SECRET_KEY'] = os.urandom(24)
 
 login_manager = LoginManager(app)
 engine = create_engine("sqlite+pysqlite:///database.db", echo=True, future=True)
@@ -34,6 +37,16 @@ def home():
     
     return render_template('index.html')
 
+BASE_URL = 'http://200.19.145.141:8000'
+
+@app.route('/kea', methods=['GET','POST'])
+def kea():
+    url = 'http://200.19.145.141:8000/kea'
+    data = { "command": "config-get", "service": ["dhcp4"] }
+    headers = {'Content-Type': 'application/json'}
+    response = requests.post(url, data=json.dumps(data), headers=headers)
+    print(json.dumps(response.json(), indent=4))
+    return json.dumps(response.json(), indent=4)
 
 @app.route('/login', methods=['GET','POST'])
 def login():
