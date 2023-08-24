@@ -49,7 +49,7 @@ def kea():
     response = requests.post(url, data=json.dumps(data), headers=headers)
     print(json.dumps(response.json(), indent=4))
     input = json.dumps(response.json(), indent=4)
-    return json2html.convert(json = input)
+    return json2html.convert(json = input, table_attributes="id=\"info-table\" class=\"table table-bordered table-hover\"")
 
 @app.route('/login', methods=['GET','POST'])
 def login():
