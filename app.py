@@ -55,9 +55,13 @@ def kea():
     headers = {'Content-Type': 'application/json'}
     response = requests.post(url, data=json.dumps(data), headers=headers)
     result = response.json()
-    #print("result: ", result)
-    return render_template('jsonform.html', title='Json', data=data)
-    #print(json.dumps(response.json(), indent=4))
+    print("result: ", json.dumps(result, indent=2))
+    
+    # Pass json from Flask to Javascript
+    return render_template('jsonform.html', title='Json', data=result)
+    
+    
+    # Convert json to html
     #input = json.dumps(response.json(), indent=4)
     #return json2html.convert(json = input, table_attributes="id=\"info-table\" class=\"table table-bordered table-hover\"")
 

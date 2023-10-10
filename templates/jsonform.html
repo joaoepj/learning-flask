@@ -1,15 +1,21 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>Getting started with JSON Form</h1>
-<form></form>
+
 <div id="res" class="alert"></div>
+<div>
+    <form id="test"></form>
+    <span id="data">Getting started with JSON Form</span>
+</div>
 <script type="text/javascript" src="static/jquery.min.js"></script>
 <script type="text/javascript" src="static/underscore.js"></script>
 <script type="text/javascript" src="static/jsonform.js"></script>
 <script type="text/javascript">
+
+    var data1 = '{{data | tojson | safe}}';
+    document.getElementById('data').innerHTML = data1;
     
-    $('form').jsonForm({
+    $('#test').jsonForm({
         schema: {
             name: {
                 type: 'string',
@@ -20,8 +26,8 @@
                 type: 'number',
                 title: 'Age'
             }
-             },
-             "form": ["name", "Joao"],
+        },
+       
         onSubmit: function (errors, values) {
             if (errors) {
                 $('#res').html('<p>I beg your pardon?</p>');
@@ -32,6 +38,6 @@
             }
         }
     });
-          </script>
+    </script>
           
 {% endblock content %}
