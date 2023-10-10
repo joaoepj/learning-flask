@@ -9,4 +9,10 @@ $ source venv/bin/activate
 $ export FLASK_ENV=development
 $ flask run
 ```
-Then access the page in ... 
+## Listen at specific address
+```
+app.run(host=<set ip in code>)
+$ python app.py
+
+```
+Then access the page in http://<ipaddress>:5000

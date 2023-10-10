@@ -15,6 +15,7 @@ import json
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
 
+
 login_manager = LoginManager(app)
 engine = create_engine("sqlite+pysqlite:///database.db", echo=True, future=True)
 
@@ -41,15 +42,30 @@ def home():
 
 BASE_URL = 'http://200.19.145.141:8000'
 
+
+
+@app.route('/tester')
+def tester():
+    return {"jsonkey": "This is json value"}
+
 @app.route('/kea', methods=['GET','POST'])
 def kea():
     url = 'http://200.19.145.141:8000/kea'
     data = { "command": "config-get", "service": ["dhcp4"] }
     headers = {'Content-Type': 'application/json'}
     response = requests.post(url, data=json.dumps(data), headers=headers)
-    print(json.dumps(response.json(), indent=4))
-    input = json.dumps(response.json(), indent=4)
-    return json2html.convert(json = input, table_attributes="id=\"info-table\" class=\"table table-bordered table-hover\"")
+    result = response.json()
+    #print("result: ", result)
+    return render_template('jsonform.html', title='Json', data=data)
+    #print(json.dumps(response.json(), indent=4))
+    #input = json.dumps(response.json(), indent=4)
+    #return json2html.convert(json = input, table_attributes="id=\"info-table\" class=\"table table-bordered table-hover\"")
+
+@app.route('/render')
+def render():
+    return render_template('fetchrender.html')
+
+
 
 @app.route('/login', methods=['GET','POST'])
 def login():
@@ -129,3 +145,7 @@ def users():
     with engine.connect() as conn:
         result = conn.execute(text("SELECT * FROM USER"))
         return render_template('users.html', title='Users', users=result)
+    
+
+if __name__ == '__main__':
+    app.run(host='200.19.145.141')
