@@ -15,4 +15,4 @@ app.run(host=<set ip in code>)
 $ python app.py
 
 ```
-Then access the page in http://<ipaddress>:5000
+Then access the page in http://<ip address>:5000
