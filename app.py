@@ -10,7 +10,7 @@ import bcrypt
 import requests
 import os
 import json
-
+import re
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
@@ -48,8 +48,8 @@ BASE_URL = 'http://200.19.145.141:8000'
 def tester():
     return {"jsonkey": "This is json value"}
 
-@app.route('/kea', methods=['GET','POST'])
-def kea():
+@app.route('/config-get', methods=['GET','POST'])
+def config_get():
     url = 'http://200.19.145.141:8000/kea'
     data = { "command": "config-get", "service": ["dhcp4"] }
     headers = {'Content-Type': 'application/json'}
@@ -58,17 +58,24 @@ def kea():
     print("result: ", json.dumps(result, indent=2))
     
     # Pass json from Flask to Javascript
-    return render_template('jsonform.html', title='Json', data=result)
+    return render_template('config-get.html', title='Kea config-get', data=result)
     
     
     # Convert json to html
     #input = json.dumps(response.json(), indent=4)
     #return json2html.convert(json = input, table_attributes="id=\"info-table\" class=\"table table-bordered table-hover\"")
 
-@app.route('/render')
-def render():
-    return render_template('fetchrender.html')
-
+@app.route('/subnet4-list')
+def subnet4_list():
+    f = open("subnets4.json.bkp", "r")
+    content = f.read()
+    content = re.sub('(//).*', '', content)
+    #content = re.sub('^$\n', '', content)
+    #print(content)
+    #for line in range(len(content)):
+    #    if line.s
+    result = eval('{' + content + '}')
+    return render_template('subnet4-list.html', title='Kea subnet4-list', data=result)
 
 
 @app.route('/login', methods=['GET','POST'])

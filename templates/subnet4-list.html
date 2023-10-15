@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div id="res" class="alert"></div>
+<div>
+    <form id="test"></form>
+    <span id="data"></span>
+</div>
+<script type="text/javascript" src="static/jquery.min.js"></script>
+<script type="text/javascript" src="static/underscore.js"></script>
+<script type="text/javascript" src="static/jsonform.js"></script>
+<script type="text/javascript">
+
+    var data1 = '{{data | tojson | safe}}';
+    //document.getElementById('data').innerHTML = data1;
+        $('#test').jsonForm({
+            'schema': {
+                'subnet4': {
+                    'type': 'array',
+                    'title': 'Subnets IPv4',
+                    'items': {
+                        'type': 'object',
+                        'properties': {
+                            'subnet': {
+                                'type': 'string',
+                                'title': 'Subnet',
+                                'required': true
+                            },
+                            'pools': {
+                                'type': 'array',
+                                'title': 'Pools',
+                                'items': {
+                                    'type': 'object',
+                                    'properties': {
+                                        'pool': {
+                                            'type': 'string',
+                                            'notitle': true
+                                        },
+                                    }
+                                }
+                            },
+                            'reservations': {
+                                'type': 'array',
+                                'title': 'Reservations',
+                                'items': {
+                                    'type': 'object',
+                                    'properties': {
+                                        'hw-address': {
+                                            'type': 'string',
+                                            'title': 'MAC Address'
+                                        },
+                                        'ip-address': {
+                                            'type': 'string',
+                                            'title': 'IP Address'
+                                        },
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                },
+                
+            },
+            value: JSON.parse(data1),
+            onSubmit: function (errors, values) {
+                if (errors) {
+                    $('#res').html('<p>I beg your pardon?</p>');
+                } else {
+                    $('#res').html('<p>Hello ' + values.name + '.' +
+                        (values.age ? '<br/>You are ' + values.age + '.' : '') +
+                        '</p>');
+                }
+            }
+        });
+
+
+</script>
+<style>
+@import url("../static/bootstrap.css");
+@import url("../static/bootstrap-wysihtml5.css");
+@import url("../static/spectrum.css"); 
+
+    h2 {
+        font-weight: 200;
+        margin-top: 0;
+    }
+
+    .tagline {
+        padding: 10px;
+        font-weight: 200;
+        margin-top: -1em;
+    }
+
+    .footer {
+        margin-top: 40px;
+        padding: 10px 0.5em;
+        border-top: 1px solid #E5E5E5;
+    }
+
+    #form .add-on {
+        border: none;
+        background-color: inherit;
+    }
+
+    .expandable>legend:before {
+        content: '\25B8';
+        padding-right: 5px;
+    }
+
+    .expanded>legend:before {
+        content: '\25BE';
+    }
+
+    ._jsonform-array-buttons {
+        margin-left: 25px;
+    }
+
+    .jsonform-required>label:after {
+        content: ' *';
+        color: red;
+    }
+
+    form.jsonform-hasrequired:after {
+        content: '* Required field';
+        display: block;
+        color: red;
+        padding-top: 1em;
+    }
+</style>
+
+{% endblock content %}

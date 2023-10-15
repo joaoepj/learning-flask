@@ -5,7 +5,7 @@
 <div id="res" class="alert"></div>
 <div>
     <form id="test"></form>
-    <span id="data">Getting started with JSON Form</span>
+    <span id="data"></span>
 </div>
 <script type="text/javascript" src="static/jquery.min.js"></script>
 <script type="text/javascript" src="static/underscore.js"></script>
@@ -32,7 +32,6 @@
             { key: 'age', value: 44 },
             {type: 'submit', title: 'Submit'}
         ],
-       
         onSubmit: function (errors, values) {
             if (errors) {
                 $('#res').html('<p>I beg your pardon?</p>');

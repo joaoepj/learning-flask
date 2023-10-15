@@ -1,0 +1,35 @@
+{"subnet4": [
+    {
+        "subnet": "172.17.0.0/16",
+        "pools": [
+            {
+                "pool": "172.17.0.1 - 172.17.0.100"
+            }
+        ],
+        "reservations": [
+            {
+                "hw-address": "1a:1b:1c:1d:1e:1f",
+                "ip-address": "172.17.0.1"
+            },
+            {
+                "hw-address": "1a:1b:1c:1d:1e:1e",
+                "ip-address": "172.17.0.2"
+            }
+        ],
+    },
+    {
+        "subnet": "10.0.0.0/24",
+        "pools": [
+            {
+                "pool": "10.0.0.50 - 10.0.0.200"
+            }
+        ],
+        "reservations": [
+            {
+                "hw-address": "1a:1b:1c:1d:1e:2f",
+                "ip-address": "10.0.0.1"
+            }
+        ],
+    },
+],
+}
