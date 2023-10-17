@@ -16,6 +16,9 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
 
 
+KEA_URL = 'http://200.19.145.141:8000/kea'
+
+
 login_manager = LoginManager(app)
 engine = create_engine("sqlite+pysqlite:///database.db", echo=True, future=True)
 
@@ -40,7 +43,7 @@ def home():
     
     return render_template('index.html')
 
-BASE_URL = 'http://200.19.145.141:8000'
+
 
 
 
@@ -50,12 +53,11 @@ def tester():
 
 @app.route('/config-get', methods=['GET','POST'])
 def config_get():
-    url = 'http://200.19.145.141:8000/kea'
     data = { "command": "config-get", "service": ["dhcp4"] }
     headers = {'Content-Type': 'application/json'}
-    response = requests.post(url, data=json.dumps(data), headers=headers)
+    response = requests.post(KEA_URL, data=json.dumps(data), headers=headers)
     result = response.json()
-    print("result: ", json.dumps(result, indent=2))
+    print("result: ", result)
     
     # Pass json from Flask to Javascript
     return render_template('config-get.html', title='Kea config-get', data=result)
@@ -79,15 +81,28 @@ def subnet4_list():
 
 @app.route('/lease4-get-all', methods=['GET','POST'])
 def lease4_get_all():
-    url = 'http://200.19.145.141:8000/kea'
     data = { "command": "lease4-get-all", "service": ["dhcp4"] }
     headers = {'Content-Type': 'application/json'}
-    response = requests.post(url, data=json.dumps(data), headers=headers)
+    response = requests.post(KEA_URL, data=json.dumps(data), headers=headers)
     result = response.json()
     print("result: ", json.dumps(result, indent=2))
     
     # Pass json from Flask to Javascript
     return render_template('lease4-get-all.html', title='Kea lease4-get-all', data=result)
+
+@app.route('/lease4-add', methods=['GET','POST'])
+def lease4_add():
+    if request.method == 'POST':
+        ipAddress = request.form['ipaddress']
+        hwAddress = request.form['hwaddress']
+
+        if not ipAddress:
+            flash('É necessário digitar um IP!','danger')
+        elif not hwAddress:
+            flash('É necessário digitar um MAC!','warning')
+    result = {'ip-address': '172.17.0.33', 'hw-address': '1a:1b:1c:1d:1e:1f'}
+        
+    return render_template('lease4-add.html', title='Kea lease4-add', data=result)
 
 
 @app.route('/login', methods=['GET','POST'])
