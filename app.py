@@ -77,6 +77,18 @@ def subnet4_list():
     result = eval('{' + content + '}')
     return render_template('subnet4-list.html', title='Kea subnet4-list', data=result)
 
+@app.route('/lease4-get-all', methods=['GET','POST'])
+def lease4_get_all():
+    url = 'http://200.19.145.141:8000/kea'
+    data = { "command": "lease4-get-all", "service": ["dhcp4"] }
+    headers = {'Content-Type': 'application/json'}
+    response = requests.post(url, data=json.dumps(data), headers=headers)
+    result = response.json()
+    print("result: ", json.dumps(result, indent=2))
+    
+    # Pass json from Flask to Javascript
+    return render_template('lease4-get-all.html', title='Kea lease4-get-all', data=result)
+
 
 @app.route('/login', methods=['GET','POST'])
 def login():

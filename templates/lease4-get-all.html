@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div id="res" class="alert"></div>
+<div>
+    <form id="test"></form>
+    <span id="data"></span>
+</div>
+<script type="text/javascript" src="static/jquery.min.js"></script>
+<script type="text/javascript" src="static/underscore.js"></script>
+<script type="text/javascript" src="static/jsonform.js"></script>
+<script type="text/javascript">
+
+    var data1 = '{{data | tojson | safe}}';
+    document.getElementById('data').innerHTML = data1;
+
+    $('#test').jsonForm({
+        schema: {
+        },
+        form: [
+            { key: 'name', value: 'Joao' },
+            { key: 'age', value: 44 },
+            { type: 'submit', title: 'Submit' }
+        ],
+        onSubmit: function (errors, values) {
+            if (errors) {
+                $('#res').html('<p>TODO: submit code</p>');
+            } else {
+            }
+        }
+    });
+</script>
+
+{% endblock content %}
