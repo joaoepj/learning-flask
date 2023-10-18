@@ -4,7 +4,7 @@
 
 <div id="res" class="alert"></div>
 <div>
-    <form id="test"></form>
+    <form id="test" method="post"></form>
     <span id="data"></span>
 </div>
 <script type="text/javascript" src="static/jquery.min.js"></script>
@@ -12,7 +12,7 @@
 <script type="text/javascript" src="static/jsonform.js"></script>
 <script type="text/javascript">
 
-    var reference = {
+/*    var reference = {
         "command": "lease4-add",
             "service": ["dhcp4"],
                 "arguments": {
@@ -20,30 +20,23 @@
                 "hw-address": "1f:1f:1c:1d:1e:1c"
 
         }
-    }
+    }               */
 
     var data1 = '{{data | tojson | safe}}';
     document.getElementById('data').innerHTML = data1;
 
     $('#test').jsonForm({
         schema: {
-            'type': 'object',
-            'properties': {
-                'hw-address': {
-                    'type': 'string',
-                    'title': 'MAC Address'
-                },
-                'ip-address': {
-                    'type': 'string',
-                    'title': 'IP Address'
-                },
-            }
+            'ip-address': {
+                'type': 'string',
+                'title': 'IP Address'
+            },
+            'hw-address': {
+                'type': 'string',
+                'title': 'MAC Address'
+            },
+            
         },
-        form: [
-            { key: 'ip-address', value: 'Joao' },
-            { key: 'hw-address', value: 'xxx' },
-            { type: 'submit', title: 'Submit' }
-        ],
         onSubmit: function (errors, values) {
             if (errors) {
                 $('#res').html('<p>TODO: submit code</p>');

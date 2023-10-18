@@ -93,15 +93,16 @@ def lease4_get_all():
 @app.route('/lease4-add', methods=['GET','POST'])
 def lease4_add():
     if request.method == 'POST':
-        ipAddress = request.form['ipaddress']
-        hwAddress = request.form['hwaddress']
-
-        if not ipAddress:
+        ipaddress = request.form['ip-address']
+        hwaddress = request.form['hw-address']
+        if not ipaddress:
             flash('É necessário digitar um IP!','danger')
-        elif not hwAddress:
+        elif not hwaddress:
             flash('É necessário digitar um MAC!','warning')
-    result = {'ip-address': '172.17.0.33', 'hw-address': '1a:1b:1c:1d:1e:1f'}
+        else:        
+            result = {'ip-address': ipaddress, 'hw-address': hwaddress}
         
+    result = {}
     return render_template('lease4-add.html', title='Kea lease4-add', data=result)
 
 
