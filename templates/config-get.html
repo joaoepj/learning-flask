@@ -11,684 +11,629 @@
 <script type="text/javascript" src="static/underscore.js"></script>
 <script type="text/javascript" src="static/jsonform.js"></script>
 <script type="text/javascript">
-    debugger
+    //debugger
     var data1 = '{{data | tojson | safe}}';
     document.getElementById('data').innerHTML = data1;
     
-    $('#test').jsonForm({
-            "Welcome6Element": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                    "arguments": {
-                        "$ref": "#/definitions/Arguments"
-                    },
-                    "result": {
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "arguments",
-                    "result"
-                ],
-                "title": "Welcome6Element"
-            },
-            "Arguments": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                    "Dhcp4": {
-                        "$ref": "#/definitions/Dhcp4"
-                    }
-                },
-                "required": [
-                    "Dhcp4"
-                ],
-                "title": "Arguments"
-            },
-            "Dhcp4": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                    "authoritative": {
-                        "type": "boolean"
-                    },
-                    "boot-file-name": {
-                        "type": "string"
-                    },
-                    "calculate-tee-times": {
-                        "type": "boolean"
-                    },
-                    "control-socket": {
-                        "$ref": "#/definitions/ControlSocket"
-                    },
-                    "ddns-generated-prefix": {
-                        "type": "string"
-                    },
-                    "ddns-override-client-update": {
-                        "type": "boolean"
-                    },
-                    "ddns-override-no-update": {
-                        "type": "boolean"
-                    },
-                    "ddns-qualifying-suffix": {
-                        "type": "string"
-                    },
-                    "ddns-replace-client-name": {
-                        "type": "string"
-                    },
-                    "ddns-send-updates": {
-                        "type": "boolean"
-                    },
-                    "ddns-update-on-renew": {
-                        "type": "boolean"
-                    },
-                    "ddns-use-conflict-resolution": {
-                        "type": "boolean"
-                    },
-                    "decline-probation-period": {
-                        "type": "integer"
-                    },
-                    "dhcp-ddns": {
-                        "$ref": "#/definitions/DHCPDdns"
-                    },
-                    "dhcp-queue-control": {
-                        "$ref": "#/definitions/DHCPQueueControl"
-                    },
-                    "dhcp4o6-port": {
-                        "type": "integer"
-                    },
-                    "early-global-reservations-lookup": {
-                        "type": "boolean"
-                    },
-                    "echo-client-id": {
-                        "type": "boolean"
-                    },
-                    "expired-leases-processing": {
-                        "$ref": "#/definitions/ExpiredLeasesProcessing"
-                    },
-                    "hooks-libraries": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/definitions/HooksLibrary"
+    $('#test').jsonForm({ schema: {
+            "type": "array",
+    "items": [
+        {
+                            "arguments": {
+                    "type": "object",
+                    "properties": {
+                        "Dhcp4": {
+                            "type": "object",
+                            "properties": {
+                                "authoritative": {
+                                    "type": "boolean"
+                                },
+                                "boot-file-name": {
+                                    "type": "string"
+                                },
+                                "calculate-tee-times": {
+                                    "type": "boolean"
+                                },
+                                "control-socket": {
+                                    "type": "object",
+                                    "properties": {
+                                        "socket-name": {
+                                            "type": "string"
+                                        },
+                                        "socket-type": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "ddns-generated-prefix": {
+                                    "type": "string"
+                                },
+                                "ddns-override-client-update": {
+                                    "type": "boolean"
+                                },
+                                "ddns-override-no-update": {
+                                    "type": "boolean"
+                                },
+                                "ddns-qualifying-suffix": {
+                                    "type": "string"
+                                },
+                                "ddns-replace-client-name": {
+                                    "type": "string"
+                                },
+                                "ddns-send-updates": {
+                                    "type": "boolean"
+                                },
+                                "ddns-update-on-renew": {
+                                    "type": "boolean"
+                                },
+                                "ddns-use-conflict-resolution": {
+                                    "type": "boolean"
+                                },
+                                "decline-probation-period": {
+                                    "type": "integer"
+                                },
+                                "dhcp-ddns": {
+                                    "type": "object",
+                                    "properties": {
+                                        "enable-updates": {
+                                            "type": "boolean"
+                                        },
+                                        "max-queue-size": {
+                                            "type": "integer"
+                                        },
+                                        "ncr-format": {
+                                            "type": "string"
+                                        },
+                                        "ncr-protocol": {
+                                            "type": "string"
+                                        },
+                                        "sender-ip": {
+                                            "type": "string"
+                                        },
+                                        "sender-port": {
+                                            "type": "integer"
+                                        },
+                                        "server-ip": {
+                                            "type": "string"
+                                        },
+                                        "server-port": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                },
+                                "dhcp-queue-control": {
+                                    "type": "object",
+                                    "properties": {
+                                        "capacity": {
+                                            "type": "integer"
+                                        },
+                                        "enable-queue": {
+                                            "type": "boolean"
+                                        },
+                                        "queue-type": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "dhcp4o6-port": {
+                                    "type": "integer"
+                                },
+                                "early-global-reservations-lookup": {
+                                    "type": "boolean"
+                                },
+                                "echo-client-id": {
+                                    "type": "boolean"
+                                },
+                                "expired-leases-processing": {
+                                    "type": "object",
+                                    "properties": {
+                                        "flush-reclaimed-timer-wait-time": {
+                                            "type": "integer"
+                                        },
+                                        "hold-reclaimed-time": {
+                                            "type": "integer"
+                                        },
+                                        "max-reclaim-leases": {
+                                            "type": "integer"
+                                        },
+                                        "max-reclaim-time": {
+                                            "type": "integer"
+                                        },
+                                        "reclaim-timer-wait-time": {
+                                            "type": "integer"
+                                        },
+                                        "unwarned-reclaim-cycles": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                },
+                                "hooks-libraries": {
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "library": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                },
+                                "host-reservation-identifiers": {
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "string"
+                                        }
+                                    ]
+                                },
+                                "hostname-char-replacement": {
+                                    "type": "string"
+                                },
+                                "hostname-char-set": {
+                                    "type": "string"
+                                },
+                                "interfaces-config": {
+                                    "type": "object",
+                                    "properties": {
+                                        "interfaces": {
+                                            "type": "array",
+                                            "items": [
+                                                {
+                                                    "type": "string"
+                                                }
+                                            ]
+                                        },
+                                        "re-detect": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                },
+                                "ip-reservations-unique": {
+                                    "type": "boolean"
+                                },
+                                "lease-database": {
+                                    "type": "object",
+                                    "properties": {
+                                        "lfc-interval": {
+                                            "type": "integer"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "type": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "loggers": {
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "debuglevel": {
+                                                    "type": "integer"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "output_options": {
+                                                    "type": "array",
+                                                    "items": [
+                                                        {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "flush": {
+                                                                    "type": "boolean"
+                                                                },
+                                                                "output": {
+                                                                    "type": "string"
+                                                                },
+                                                                "pattern": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
+                                                        },
+                                                        {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "flush": {
+                                                                    "type": "boolean"
+                                                                },
+                                                                "maxsize": {
+                                                                    "type": "integer"
+                                                                },
+                                                                "maxver": {
+                                                                    "type": "integer"
+                                                                },
+                                                                "output": {
+                                                                    "type": "string"
+                                                                },
+                                                                "pattern": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                "severity": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                },
+                                "match-client-id": {
+                                    "type": "boolean"
+                                },
+                                "multi-threading": {
+                                    "type": "object",
+                                    "properties": {
+                                        "enable-multi-threading": {
+                                            "type": "boolean"
+                                        },
+                                        "packet-queue-size": {
+                                            "type": "integer"
+                                        },
+                                        "thread-pool-size": {
+                                            "type": "integer"
+                                        }
+                                    }
+                                },
+                                "next-server": {
+                                    "type": "string"
+                                },
+                                "option-data": {
+                                    "type": "array",
+                                    "items": {}
+                                },
+                                "option-def": {
+                                    "type": "array",
+                                    "items": {}
+                                },
+                                "parked-packet-limit": {
+                                    "type": "integer"
+                                },
+                                "rebind-timer": {
+                                    "type": "integer"
+                                },
+                                "renew-timer": {
+                                    "type": "integer"
+                                },
+                                "reservations-global": {
+                                    "type": "boolean"
+                                },
+                                "reservations-in-subnet": {
+                                    "type": "boolean"
+                                },
+                                "reservations-lookup-first": {
+                                    "type": "boolean"
+                                },
+                                "reservations-out-of-pool": {
+                                    "type": "boolean"
+                                },
+                                "sanity-checks": {
+                                    "type": "object",
+                                    "properties": {
+                                        "lease-checks": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "server-hostname": {
+                                    "type": "string"
+                                },
+                                "server-tag": {
+                                    "type": "string"
+                                },
+                                "shared-networks": {
+                                    "type": "array",
+                                    "items": {}
+                                },
+                                "statistic-default-sample-age": {
+                                    "type": "integer"
+                                },
+                                "statistic-default-sample-count": {
+                                    "type": "integer"
+                                },
+                                "store-extended-info": {
+                                    "type": "boolean"
+                                },
+                                "subnet4": {
+                                    "type": "array",
+                                    "items": [
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "4o6-interface": {
+                                                    "type": "string"
+                                                },
+                                                "4o6-interface-id": {
+                                                    "type": "string"
+                                                },
+                                                "4o6-subnet": {
+                                                    "type": "string"
+                                                },
+                                                "calculate-tee-times": {
+                                                    "type": "boolean"
+                                                },
+                                                "id": {
+                                                    "type": "integer"
+                                                },
+                                                "max-valid-lifetime": {
+                                                    "type": "integer"
+                                                },
+                                                "min-valid-lifetime": {
+                                                    "type": "integer"
+                                                },
+                                                "option-data": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                },
+                                                "pools": {
+                                                    "type": "array",
+                                                    "items": [
+                                                        {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "option-data": {
+                                                                    "type": "array",
+                                                                    "items": {}
+                                                                },
+                                                                "pool": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                "rebind-timer": {
+                                                    "type": "integer"
+                                                },
+                                                "relay": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "ip-addresses": {
+                                                            "type": "array",
+                                                            "items": {}
+                                                        }
+                                                    }
+                                                },
+                                                "renew-timer": {
+                                                    "type": "integer"
+                                                },
+                                                "reservations": {
+                                                    "type": "array",
+                                                    "items": [
+                                                        {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "boot-file-name": {
+                                                                    "type": "string"
+                                                                },
+                                                                "client-classes": {
+                                                                    "type": "array",
+                                                                    "items": {}
+                                                                },
+                                                                "hostname": {
+                                                                    "type": "string"
+                                                                },
+                                                                "hw-address": {
+                                                                    "type": "string"
+                                                                },
+                                                                "ip-address": {
+                                                                    "type": "string"
+                                                                },
+                                                                "next-server": {
+                                                                    "type": "string"
+                                                                },
+                                                                "option-data": {
+                                                                    "type": "array",
+                                                                    "items": {}
+                                                                },
+                                                                "server-hostname": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
+                                                        },
+                                                        {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "boot-file-name": {
+                                                                    "type": "string"
+                                                                },
+                                                                "client-classes": {
+                                                                    "type": "array",
+                                                                    "items": {}
+                                                                },
+                                                                "hostname": {
+                                                                    "type": "string"
+                                                                },
+                                                                "hw-address": {
+                                                                    "type": "string"
+                                                                },
+                                                                "ip-address": {
+                                                                    "type": "string"
+                                                                },
+                                                                "next-server": {
+                                                                    "type": "string"
+                                                                },
+                                                                "option-data": {
+                                                                    "type": "array",
+                                                                    "items": {}
+                                                                },
+                                                                "server-hostname": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                "store-extended-info": {
+                                                    "type": "boolean"
+                                                },
+                                                "subnet": {
+                                                    "type": "string"
+                                                },
+                                                "t1-percent": {
+                                                    "type": "number"
+                                                },
+                                                "t2-percent": {
+                                                    "type": "number"
+                                                },
+                                                "valid-lifetime": {
+                                                    "type": "integer"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "object",
+                                            "properties": {
+                                                "4o6-interface": {
+                                                    "type": "string"
+                                                },
+                                                "4o6-interface-id": {
+                                                    "type": "string"
+                                                },
+                                                "4o6-subnet": {
+                                                    "type": "string"
+                                                },
+                                                "calculate-tee-times": {
+                                                    "type": "boolean"
+                                                },
+                                                "id": {
+                                                    "type": "integer"
+                                                },
+                                                "max-valid-lifetime": {
+                                                    "type": "integer"
+                                                },
+                                                "min-valid-lifetime": {
+                                                    "type": "integer"
+                                                },
+                                                "option-data": {
+                                                    "type": "array",
+                                                    "items": {}
+                                                },
+                                                "pools": {
+                                                    "type": "array",
+                                                    "items": [
+                                                        {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "option-data": {
+                                                                    "type": "array",
+                                                                    "items": {}
+                                                                },
+                                                                "pool": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                "rebind-timer": {
+                                                    "type": "integer"
+                                                },
+                                                "relay": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "ip-addresses": {
+                                                            "type": "array",
+                                                            "items": {}
+                                                        }
+                                                    }
+                                                },
+                                                "renew-timer": {
+                                                    "type": "integer"
+                                                },
+                                                "reservations": {
+                                                    "type": "array",
+                                                    "items": [
+                                                        {
+                                                            "type": "object",
+                                                            "properties": {
+                                                                "boot-file-name": {
+                                                                    "type": "string"
+                                                                },
+                                                                "client-classes": {
+                                                                    "type": "array",
+                                                                    "items": {}
+                                                                },
+                                                                "hostname": {
+                                                                    "type": "string"
+                                                                },
+                                                                "hw-address": {
+                                                                    "type": "string"
+                                                                },
+                                                                "ip-address": {
+                                                                    "type": "string"
+                                                                },
+                                                                "next-server": {
+                                                                    "type": "string"
+                                                                },
+                                                                "option-data": {
+                                                                    "type": "array",
+                                                                    "items": {}
+                                                                },
+                                                                "server-hostname": {
+                                                                    "type": "string"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                "store-extended-info": {
+                                                    "type": "boolean"
+                                                },
+                                                "subnet": {
+                                                    "type": "string"
+                                                },
+                                                "t1-percent": {
+                                                    "type": "number"
+                                                },
+                                                "t2-percent": {
+                                                    "type": "number"
+                                                },
+                                                "valid-lifetime": {
+                                                    "type": "integer"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                },
+                                "t1-percent": {
+                                    "type": "number"
+                                },
+                                "t2-percent": {
+                                    "type": "number"
+                                },
+                                "valid-lifetime": {
+                                    "type": "integer"
+                                }
+                            }
                         }
-                    },
-                    "host-reservation-identifiers": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
-                    "hostname-char-replacement": {
-                        "type": "string"
-                    },
-                    "hostname-char-set": {
-                        "type": "string"
-                    },
-                    "interfaces-config": {
-                        "$ref": "#/definitions/InterfacesConfig"
-                    },
-                    "ip-reservations-unique": {
-                        "type": "boolean"
-                    },
-                    "lease-database": {
-                        "$ref": "#/definitions/LeaseDatabase"
-                    },
-                    "loggers": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/definitions/Logger"
-                        }
-                    },
-                    "match-client-id": {
-                        "type": "boolean"
-                    },
-                    "multi-threading": {
-                        "$ref": "#/definitions/MultiThreading"
-                    },
-                    "next-server": {
-                        "type": "string"
-                    },
-                    "option-data": {
-                        "type": "array",
-                        "items": {}
-                    },
-                    "option-def": {
-                        "type": "array",
-                        "items": {}
-                    },
-                    "parked-packet-limit": {
-                        "type": "integer"
-                    },
-                    "rebind-timer": {
-                        "type": "integer"
-                    },
-                    "renew-timer": {
-                        "type": "integer"
-                    },
-                    "reservations-global": {
-                        "type": "boolean"
-                    },
-                    "reservations-in-subnet": {
-                        "type": "boolean"
-                    },
-                    "reservations-lookup-first": {
-                        "type": "boolean"
-                    },
-                    "reservations-out-of-pool": {
-                        "type": "boolean"
-                    },
-                    "sanity-checks": {
-                        "$ref": "#/definitions/SanityChecks"
-                    },
-                    "server-hostname": {
-                        "type": "string"
-                    },
-                    "server-tag": {
-                        "type": "string"
-                    },
-                    "shared-networks": {
-                        "type": "array",
-                        "items": {}
-                    },
-                    "statistic-default-sample-age": {
-                        "type": "integer"
-                    },
-                    "statistic-default-sample-count": {
-                        "type": "integer"
-                    },
-                    "store-extended-info": {
-                        "type": "boolean"
-                    },
-                    "subnet4": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/definitions/Subnet4"
-                        }
-                    },
-                    "t1-percent": {
-                        "type": "number"
-                    },
-                    "t2-percent": {
-                        "type": "number"
-                    },
-                    "valid-lifetime": {
-                        "type": "integer"
                     }
                 },
-                "required": [
-                    "authoritative",
-                    "boot-file-name",
-                    "calculate-tee-times",
-                    "control-socket",
-                    "ddns-generated-prefix",
-                    "ddns-override-client-update",
-                    "ddns-override-no-update",
-                    "ddns-qualifying-suffix",
-                    "ddns-replace-client-name",
-                    "ddns-send-updates",
-                    "ddns-update-on-renew",
-                    "ddns-use-conflict-resolution",
-                    "decline-probation-period",
-                    "dhcp-ddns",
-                    "dhcp-queue-control",
-                    "dhcp4o6-port",
-                    "early-global-reservations-lookup",
-                    "echo-client-id",
-                    "expired-leases-processing",
-                    "hooks-libraries",
-                    "host-reservation-identifiers",
-                    "hostname-char-replacement",
-                    "hostname-char-set",
-                    "interfaces-config",
-                    "ip-reservations-unique",
-                    "lease-database",
-                    "loggers",
-                    "match-client-id",
-                    "multi-threading",
-                    "next-server",
-                    "option-data",
-                    "option-def",
-                    "parked-packet-limit",
-                    "rebind-timer",
-                    "renew-timer",
-                    "reservations-global",
-                    "reservations-in-subnet",
-                    "reservations-lookup-first",
-                    "reservations-out-of-pool",
-                    "sanity-checks",
-                    "server-hostname",
-                    "server-tag",
-                    "shared-networks",
-                    "statistic-default-sample-age",
-                    "statistic-default-sample-count",
-                    "store-extended-info",
-                    "subnet4",
-                    "t1-percent",
-                    "t2-percent",
-                    "valid-lifetime"
-                ],
-                "title": "Dhcp4"
-            },
-            "ControlSocket": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                    "socket-name": {
-                        "type": "string"
-                    },
-                    "socket-type": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "socket-name",
-                    "socket-type"
-                ],
-                "title": "ControlSocket"
-            },
-            "DHCPDdns": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                    "enable-updates": {
-                        "type": "boolean"
-                    },
-                    "max-queue-size": {
-                        "type": "integer"
-                    },
-                    "ncr-format": {
-                        "type": "string"
-                    },
-                    "ncr-protocol": {
-                        "type": "string"
-                    },
-                    "sender-ip": {
-                        "type": "string"
-                    },
-                    "sender-port": {
-                        "type": "integer"
-                    },
-                    "server-ip": {
-                        "type": "string"
-                    },
-                    "server-port": {
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "enable-updates",
-                    "max-queue-size",
-                    "ncr-format",
-                    "ncr-protocol",
-                    "sender-ip",
-                    "sender-port",
-                    "server-ip",
-                    "server-port"
-                ],
-                "title": "DHCPDdns"
-            },
-            "DHCPQueueControl": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                    "capacity": {
-                        "type": "integer"
-                    },
-                    "enable-queue": {
-                        "type": "boolean"
-                    },
-                    "queue-type": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "capacity",
-                    "enable-queue",
-                    "queue-type"
-                ],
-                "title": "DHCPQueueControl"
-            },
-            "ExpiredLeasesProcessing": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                    "flush-reclaimed-timer-wait-time": {
-                        "type": "integer"
-                    },
-                    "hold-reclaimed-time": {
-                        "type": "integer"
-                    },
-                    "max-reclaim-leases": {
-                        "type": "integer"
-                    },
-                    "max-reclaim-time": {
-                        "type": "integer"
-                    },
-                    "reclaim-timer-wait-time": {
-                        "type": "integer"
-                    },
-                    "unwarned-reclaim-cycles": {
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "flush-reclaimed-timer-wait-time",
-                    "hold-reclaimed-time",
-                    "max-reclaim-leases",
-                    "max-reclaim-time",
-                    "reclaim-timer-wait-time",
-                    "unwarned-reclaim-cycles"
-                ],
-                "title": "ExpiredLeasesProcessing"
-            },
-            "HooksLibrary": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                    "library": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "library"
-                ],
-                "title": "HooksLibrary"
-            },
-            "InterfacesConfig": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                    "interfaces": {
-                        "type": "array",
-                        "items": {
-                            "type": "string"
-                        }
-                    },
-                    "re-detect": {
-                        "type": "boolean"
-                    }
-                },
-                "required": [
-                    "interfaces",
-                    "re-detect"
-                ],
-                "title": "InterfacesConfig"
-            },
-            "LeaseDatabase": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                    "lfc-interval": {
-                        "type": "integer"
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "type": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "lfc-interval",
-                    "name",
-                    "type"
-                ],
-                "title": "LeaseDatabase"
-            },
-            "Logger": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                    "debuglevel": {
-                        "type": "integer"
-                    },
-                    "name": {
-                        "type": "string"
-                    },
-                    "output_options": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/definitions/OutputOption"
-                        }
-                    },
-                    "severity": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "debuglevel",
-                    "name",
-                    "output_options",
-                    "severity"
-                ],
-                "title": "Logger"
-            },
-            "OutputOption": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                    "flush": {
-                        "type": "boolean"
-                    },
-                    "output": {
-                        "type": "string"
-                    },
-                    "pattern": {
-                        "type": "string"
-                    },
-                    "maxsize": {
-                        "type": "integer"
-                    },
-                    "maxver": {
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "flush",
-                    "output",
-                    "pattern"
-                ],
-                "title": "OutputOption"
-            },
-            "MultiThreading": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                    "enable-multi-threading": {
-                        "type": "boolean"
-                    },
-                    "packet-queue-size": {
-                        "type": "integer"
-                    },
-                    "thread-pool-size": {
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "enable-multi-threading",
-                    "packet-queue-size",
-                    "thread-pool-size"
-                ],
-                "title": "MultiThreading"
-            },
-            "SanityChecks": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                    "lease-checks": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "lease-checks"
-                ],
-                "title": "SanityChecks"
-            },
-            "Subnet4": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                    "4o6-interface": {
-                        "type": "string"
-                    },
-                    "4o6-interface-id": {
-                        "type": "string"
-                    },
-                    "4o6-subnet": {
-                        "type": "string"
-                    },
-                    "calculate-tee-times": {
-                        "type": "boolean"
-                    },
-                    "id": {
-                        "type": "integer"
-                    },
-                    "max-valid-lifetime": {
-                        "type": "integer"
-                    },
-                    "min-valid-lifetime": {
-                        "type": "integer"
-                    },
-                    "option-data": {
-                        "type": "array",
-                        "items": {}
-                    },
-                    "pools": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/definitions/Pool"
-                        }
-                    },
-                    "rebind-timer": {
-                        "type": "integer"
-                    },
-                    "relay": {
-                        "$ref": "#/definitions/Relay"
-                    },
-                    "renew-timer": {
-                        "type": "integer"
-                    },
-                    "reservations": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/definitions/Reservation"
-                        }
-                    },
-                    "store-extended-info": {
-                        "type": "boolean"
-                    },
-                    "subnet": {
-                        "type": "string"
-                    },
-                    "t1-percent": {
-                        "type": "number"
-                    },
-                    "t2-percent": {
-                        "type": "number"
-                    },
-                    "valid-lifetime": {
-                        "type": "integer"
-                    }
-                },
-                "required": [
-                    "4o6-interface",
-                    "4o6-interface-id",
-                    "4o6-subnet",
-                    "calculate-tee-times",
-                    "id",
-                    "max-valid-lifetime",
-                    "min-valid-lifetime",
-                    "option-data",
-                    "pools",
-                    "rebind-timer",
-                    "relay",
-                    "renew-timer",
-                    "reservations",
-                    "store-extended-info",
-                    "subnet",
-                    "t1-percent",
-                    "t2-percent",
-                    "valid-lifetime"
-                ],
-                "title": "Subnet4"
-            },
-            "Pool": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                    "option-data": {
-                        "type": "array",
-                        "items": {}
-                    },
-                    "pool": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "option-data",
-                    "pool"
-                ],
-                "title": "Pool"
-            },
-            "Relay": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                    "ip-addresses": {
-                        "type": "array",
-                        "items": {}
-                    }
-                },
-                "required": [
-                    "ip-addresses"
-                ],
-                "title": "Relay"
-            },
-            "Reservation": {
-                "type": "object",
-                "additionalProperties": false,
-                "properties": {
-                    "boot-file-name": {
-                        "type": "string"
-                    },
-                    "client-classes": {
-                        "type": "array",
-                        "items": {}
-                    },
-                    "hostname": {
-                        "type": "string"
-                    },
-                    "hw-address": {
-                        "type": "string"
-                    },
-                    "ip-address": {
-                        "type": "string"
-                    },
-                    "next-server": {
-                        "type": "string"
-                    },
-                    "option-data": {
-                        "type": "array",
-                        "items": {}
-                    },
-                    "server-hostname": {
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "boot-file-name",
-                    "client-classes",
-                    "hostname",
-                    "hw-address",
-                    "ip-address",
-                    "next-server",
-                    "option-data",
-                    "server-hostname"
-                ],
-                "title": "Reservation"
+                "result": {
+                    "type": "integer"
+                }
             }
-        },
+        
+    ]
+            }
+    ,
+    value: $.grep(JSON.parse(data1)).$,
         onSubmit: function (errors, values) {
             if (errors) {
                 $('#res').html('<p>TODO: submit code</p>');
