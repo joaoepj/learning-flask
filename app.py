@@ -69,14 +69,12 @@ def config_get():
 
 @app.route('/subnet4-list')
 def subnet4_list():
-    f = open("subnets4.json.bkp", "r")
-    content = f.read()
-    content = re.sub('(//).*', '', content)
-    #content = re.sub('^$\n', '', content)
-    #print(content)
-    #for line in range(len(content)):
-    #    if line.s
-    result = eval('{' + content + '}')
+    data = { "command": "config-get", "service": ["dhcp4"] }
+    headers = {'Content-Type': 'application/json'}
+    response = requests.post(KEA_URL, data=json.dumps(data), headers=headers)
+    result = response.json()
+    #print("result: ", result)
+    print("result: ", result[0]['arguments']['Dhcp4']['subnet4'][0])
     return render_template('subnet4-list.html', title='Kea subnet4-list', data=result)
 
 @app.route('/lease4-get-all', methods=['GET','POST'])
