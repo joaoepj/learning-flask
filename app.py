@@ -90,6 +90,7 @@ def lease4_get_all():
 
 @app.route('/lease4-add', methods=['GET','POST'])
 def lease4_add():
+    print(request.method)
     if request.method == 'POST':
         ipaddress = request.form['ip-address']
         hwaddress = request.form['hw-address']
@@ -99,8 +100,11 @@ def lease4_add():
             flash('É necessário digitar um MAC!','warning')
         else:        
             result = {'ip-address': ipaddress, 'hw-address': hwaddress}
-        
-    result = {}
+            return render_template('lease4-add.html', title='Kea lease4-add', data=result)
+    
+    # uncomment the line below
+    # UnboundLocalError: local variable 'result' referenced before assignment    
+    result = 'null'
     return render_template('lease4-add.html', title='Kea lease4-add', data=result)
 
 

@@ -4,19 +4,19 @@
 
 
 <div id="res" class="alert"></div>
-<div>
-    <form id="test"></form>
-    <span id="data"></span>
-</div>
-<script type="text/javascript" src="static/jquery.min.js"></script>
-<script type="text/javascript" src="static/underscore.js"></script>
-<script type="text/javascript" src="static/jsonform.js"></script>
+<p>Copy the content of span#data from "arguments":{"Dhcp4":{"allocator" ... to the last curly bracket. Create a new file in Vs Code (File > New Text File). Select the JSON language and paste the clipboard contents to it. Remove hash and result attributes in the end of object, including its precedent commas, also remove the trailing curly bracket. If you have done everything right so far, the opening curly bracket after "arguments" and the trailing closing curly bracket should be of the same color. This text should be valid as input for the config-set command.</p>
+<form id="test" name="test" ></form>
+<span id="data"></span>
+
+
 <script type="text/javascript">
 
     var data1 = '{{data | tojson | safe}}';
     //document.getElementById('data').innerHTML = data1;
-    data2 = JSON.parse(data1)
-    console.log(data2[0]['arguments']['Dhcp4'].subnet4)
+    var data2 = JSON.parse(data1)
+    var subnet4 = {}
+    subnet4['subnet4'] = data2[0].arguments.Dhcp4.subnet4
+    console.log(subnet4)
         $('#test').jsonForm({
             'schema': {
                 'subnet4': {
@@ -66,14 +66,13 @@
                 },
                 
             },
-            value: data2[0]['arguments']['Dhcp4'].subnet4,
+            value: subnet4,
             onSubmit: function (errors, values) {
                 if (errors) {
-                    $('#res').html('<p>I beg your pardon?</p>');
+                    $('#res').html('<p>' + errors + '</p>');
                 } else {
-                    $('#res').html('<p>Hello ' + values.name + '.' +
-                        (values.age ? '<br/>You are ' + values.age + '.' : '') +
-                        '</p>');
+                    data2[0].arguments.Dhcp4.subnet4 = values.subnet4
+                    $('#data').html(JSON.stringify(data2));
                 }
             }
         });
