@@ -16,6 +16,7 @@
     var data2 = JSON.parse(data1)
     var subnet4 = {}
     subnet4['subnet4'] = data2[0].arguments.Dhcp4.subnet4
+    document.getElementById('data').innerHTML = typeof subnet4;
     console.log(subnet4)
         $('#test').jsonForm({
             'schema': {

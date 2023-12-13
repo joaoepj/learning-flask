@@ -57,7 +57,7 @@ def config_get():
     headers = {'Content-Type': 'application/json'}
     response = requests.post(KEA_URL, data=json.dumps(data), headers=headers)
     result = response.json()
-    print("result: ", result)
+    print("result: ", json.dumps(result, indent=4))
     
     # Pass json from Flask to Javascript
     return render_template('config-get.html', title='Kea config-get', data=result)
@@ -74,7 +74,7 @@ def subnet4_list():
     response = requests.post(KEA_URL, data=json.dumps(data), headers=headers)
     result = response.json()
     #print("result: ", result)
-    print("result: ", result[0]['arguments']['Dhcp4']['subnet4'][0])
+    print("result: ", json.dumps(result[0]['arguments']['Dhcp4']['subnet4'][0], indent=4))
     return render_template('subnet4-list.html', title='Kea subnet4-list', data=result)
 
 @app.route('/lease4-get-all', methods=['GET','POST'])
@@ -104,7 +104,7 @@ def lease4_add():
     
     # uncomment the line below
     # UnboundLocalError: local variable 'result' referenced before assignment    
-    result = 'null'
+    result = ''
     return render_template('lease4-add.html', title='Kea lease4-add', data=result)
 
 
