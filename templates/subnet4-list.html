@@ -5,19 +5,21 @@
 
 <div id="res" class="alert"></div>
 <p>Copy the content of span#data from "arguments":{"Dhcp4":{"allocator" ... to the last curly bracket. Create a new file in Vs Code (File > New Text File). Select the JSON language and paste the clipboard contents to it. Remove hash and result attributes in the end of object, including its precedent commas, also remove the trailing curly bracket. If you have done everything right so far, the opening curly bracket after "arguments" and the trailing closing curly bracket should be of the same color. This text should be valid as input for the config-set command.</p>
-<form id="test" name="test" ></form>
+<form id="test"></form>
 <span id="data"></span>
 
 
 <script type="text/javascript">
 
+
+    
     var data1 = '{{data | tojson | safe}}';
     //document.getElementById('data').innerHTML = data1;
     var data2 = JSON.parse(data1)
     var subnet4 = {}
     subnet4['subnet4'] = data2[0].arguments.Dhcp4.subnet4
     document.getElementById('data').innerHTML = typeof subnet4;
-    console.log(subnet4)
+    //console.log(subnet4)
         $('#test').jsonForm({
             'schema': {
                 'subnet4': {
@@ -72,12 +74,39 @@
                 if (errors) {
                     $('#res').html('<p>' + errors + '</p>');
                 } else {
-                    data2[0].arguments.Dhcp4.subnet4 = values.subnet4
-                    $('#data').html(JSON.stringify(data2));
+                    data2[0].arguments.Dhcp4.subnet4 = subnet4
+                    var patch = [{"op": "remove", "path": "/0/result"},
+                                { "op": "remove", "path": "/0/arguments/hash" }];
+                    jsonpatch.applyPatch(data2, patch);
+                    //console.log(data2)
+                    $('#data').html(JSON.stringify(data2, null, 2));
                 }
             }
         });
 
+    const formEl = document.querySelector('#test');
+    formEl.addEventListener('submit', event => {
+        event.preventDefault();
+        const formData = new FormData(formEl);
+        const dat = Object.fromEntries(formData);
+        data2[0].arguments.Dhcp4.subnet4 = dat.subnet4
+                    var patch = [{"op": "remove", "path": "/0/result"},
+                                { "op": "remove", "path": "/0/arguments/hash" }];
+                    jsonpatch.applyPatch(data2, patch);
+                    $('#data').html(JSON.stringify(data2, null, 2));
+        console.log(data2);
+        fetch('http://200.19.145.141:8000', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Control-Allow-Origin': '*'
+            },
+            body: JSON.stringify(data2)
+            
+        }).then(res => res.json())
+          .then(data_test => console.log(data_test))
+    });
+        
 
 </script>
 
