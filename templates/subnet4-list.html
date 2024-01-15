@@ -90,21 +90,27 @@
         const formData = new FormData(formEl);
         const dat = Object.fromEntries(formData);
         data2[0].arguments.Dhcp4.subnet4 = dat.subnet4
-                    var patch = [{"op": "remove", "path": "/0/result"},
-                                { "op": "remove", "path": "/0/arguments/hash" }];
-                    jsonpatch.applyPatch(data2, patch);
-                    $('#data').html(JSON.stringify(data2, null, 2));
+                    var patch = [{"op": "remove", "path": "/result"},
+                                { "op": "remove", "path": "/arguments/hash"},
+                                {"op": "add", "path": "/command", "value": "config-set"},
+                                {"op": "add", "path": "/service", "value": ["dhcp4"]},
+                            ];
+                                
+                    jsonpatch.applyPatch(data2[0], patch);
+                    $('#data').html(JSON.stringify(data2[0], null, 2));
         console.log(data2);
-        fetch('http://200.19.145.141:8000', {
+        fetch('http://200.19.145.141:7000', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Control-Allow-Origin': '*'
+            headers: { 
+                'Content-Type': 'application/json'
             },
-            body: JSON.stringify(data2)
-            
+            body: JSON.stringify(data2[0]),
         }).then(res => res.json())
           .then(data_test => console.log(data_test))
+          .catch(function (error) {
+                console.log(error.message)
+            
+          })
     });
         
 

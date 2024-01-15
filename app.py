@@ -16,7 +16,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
 
 
-KEA_URL = 'http://200.19.145.141:8000/kea'
+KEA_URL = 'http://200.19.145.141:7000'
 
 
 login_manager = LoginManager(app)
@@ -74,7 +74,7 @@ def subnet4_list():
     response = requests.post(KEA_URL, data=json.dumps(data), headers=headers)
     result = response.json()
     #print("result: ", result)
-    print("result: ", json.dumps(result[0]['arguments']['Dhcp4']['subnet4'][0], indent=4))
+    print("result: ", json.dumps(result[0]['arguments']['Dhcp4']['subnet4'], indent=4))
     return render_template('subnet4-list.html', title='Kea subnet4-list', data=result)
 
 @app.route('/lease4-get-all', methods=['GET','POST'])
