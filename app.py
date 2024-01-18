@@ -3,7 +3,7 @@ from flask import redirect, flash, request
 from sqlalchemy import create_engine, text
 from flask_login import LoginManager, current_user, UserMixin
 from flask_wtf import FlaskForm
-from forms import RegistrationForm
+#from forms import RegistrationForm
 from json2html import *
 
 import bcrypt
@@ -189,4 +189,4 @@ def users():
     
 
 if __name__ == '__main__':
-    app.run(host='200.19.145.141')
+    app.run(host='0.0.0.0')
